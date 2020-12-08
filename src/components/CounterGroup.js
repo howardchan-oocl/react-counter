@@ -10,20 +10,12 @@ class CounterGroup extends Component {
     }
 
     initArraySize = (size) => {
-        const number = size.length > 0 ? parseInt(size) : 0;
+        const number = parseInt(size) > 0 ? parseInt(size) : 0;
         return Array.from(Array(number));
     }
 
-    increase = () => {
-        this.setState({
-            sum: this.state.sum + 1
-        });
-    }
-
-    decrease = () => {
-        this.setState({
-            sum: this.state.sum - 1
-        });
+    calculateSum = (sumUpdate) => {
+        this.setState((prevState) => ({ sum: prevState.sum + sumUpdate }), () => { this.props.setSum(this.state.sum); });
     }
 
     render() {
@@ -32,9 +24,8 @@ class CounterGroup extends Component {
 
         return (
             <div>
-                Sum: {this.state.sum}
                 {initArraySize.map(value =>
-                    <Counter key={value} increase={this.increase} decrease={this.decrease}/>
+                    <Counter key={value} size={size} calculateSum={this.calculateSum} />
                 )}
             </div>
         );
