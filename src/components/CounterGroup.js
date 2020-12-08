@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import Counter from "./Counter"
+import CounterContainer from "../containers/CounterContainer"
+import {v4 as uuidv4} from 'uuid';
 
 class CounterGroup extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            sum: 0
-        };
-    }
-
     initArraySize = (size) => {
         const number = parseInt(size) > 0 ? parseInt(size) : 0;
         return Array.from(Array(number));
-    }
-
-    calculateSum = (sumUpdate) => {
-        this.setState((prevState) => ({ sum: prevState.sum + sumUpdate }), () => { this.props.setSum(this.state.sum); });
     }
 
     render() {
@@ -24,8 +14,8 @@ class CounterGroup extends Component {
 
         return (
             <div>
-                {initArraySize.map(value =>
-                    <Counter key={value} size={size} calculateSum={this.calculateSum} />
+                {initArraySize.map(() =>
+                    <CounterContainer key={uuidv4()}/>
                 )}
             </div>
         );
